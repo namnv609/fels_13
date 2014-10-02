@@ -1,63 +1,72 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.View.Layouts
- * @since         CakePHP(tm) v 0.10.0.1076
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-
-$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
-$cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
-?>
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-<head>
-	<?php echo $this->Html->charset(); ?>
-	<title>
-		<?php echo $cakeDescription ?>:
-		<?php echo $title_for_layout; ?>
-	</title>
-	<?php
-		echo $this->Html->meta('icon');
 
-		echo $this->Html->css('cake.generic');
+    <head>
+        <title>Framgia E-learning System</title>
+        <meta name="description" content="website description" />
+        <meta name="keywords" content="website keywords, website keywords" />
+        <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+        <?php
+            echo $this->Html->css(array(
+                'style'
+            ));
+        ?>
+    </head>
 
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
-	?>
-</head>
-<body>
-	<div id="container">
-		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
-		</div>
-		<div id="content">
-
-			<?php echo $this->Session->flash(); ?>
-
-			<?php echo $this->fetch('content'); ?>
-		</div>
-		<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
-				);
-			?>
-			<p>
-				<?php echo $cakeVersion; ?>
-			</p>
-		</div>
-	</div>
-	<?php echo $this->element('sql_dump'); ?>
-</body>
+    <body>
+        <div id="main">
+            <div id="header">
+                <div id="logo">
+                    <h1>Framgia<a href="<?php echo SITE_URL; ?>"> E-learning System</a></h1>
+                    <div class="slogan">&nbsp;</div>
+                </div>
+                <div id="menubar">
+                    <ul id="menu">
+                        <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                        <li class="current"><a href="index.html">Home</a></li>
+                        <li><a href="examples.html">Examples</a></li>
+                        <li><a href="page.html">A Page</a></li>
+                        <li><a href="another_page.html">Another Page</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="site_content">
+                <div id="sidebar_container">
+                    <img class="paperclip" src="img/paperclip.png" alt="paperclip" />
+                    <div class="sidebar">
+                        <!-- insert your sidebar items here -->
+                        <h3>Latest News</h3>
+                        <h4>What's the News?</h4>
+                        <h5>1st July 2011</h5>
+                        <p>Put your latest news item here, or anything else you would like in the sidebar!<br /><a href="#">Read more</a></p>
+                    </div>
+                    <img class="paperclip" src="img/paperclip.png" alt="paperclip" />
+                    <div class="sidebar">
+                        <h3>Newsletter</h3>
+                        <p>If you would like to receive our newletter, please enter your email address and click 'Subscribe'.</p>
+                        <form method="post" action="#" id="subscribe">
+                            <p style="padding: 0 0 9px 0;"><input class="search" type="text" name="email_address" value="your email address" onclick="javascript: document.forms['subscribe'].email_address.value = ''" /></p>
+                            <p><input class="subscribe" name="subscribe" type="submit" value="Subscribe" /></p>
+                        </form>
+                    </div>
+                    <img class="paperclip" src="img/paperclip.png" alt="paperclip" />
+                    <div class="sidebar">
+                        <h3>Latest Blog</h3>
+                        <h4>Website Goes Live</h4>
+                        <h5>1st July 2011</h5>
+                        <p>We have just launched our new website. Take a look around, we'd love to know what you think.....<br /><a href="#">read more</a></p>
+                    </div>
+                </div>
+                <div id="content">
+                    <?php echo $this->fetch('content'); ?>
+                </div>
+            </div>
+            <div id="footer">
+                <p>Copyright &copy; 2014 Framgia Vietnam</p>
+            </div>
+        </div>
+    </body>
 </html>
