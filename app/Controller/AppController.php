@@ -38,12 +38,38 @@ class AppController extends Controller {
     public function beforeFilter() {
         //parent::beforeFilter();
         
-        $excludeFunctions = array();
+        /**
+         * Không áp dụng cho các function trong mảng này
+         */
+        $excludeFunctions = array('admin_login', 'admin_logout');
         
         if($this->params['prefix'] == "admin" && isset($this->params["prefix"])){
-            $this->layout = "admin";
+            //$this->layout = "admin";
+            if($this->__adminAuthCheck() === TRUE){
+                $this->layout = "admin";
+            }elseif (!in_array($this->action, $excludeFunctions)) {
+                $this->redirect(SITE_URL);
+            }
         }else{
             
         }
+    }
+    
+    /**
+     * Check Admin authentication
+     * 
+     * @return boolean Auth or Un-auth
+     */
+    private function __adminAuthCheck(){
+        $session = $this->Session->read('UserSession');
+        
+        if(isset($session["isLogin"])
+            && $session["isLogin"] === TRUE
+            && $session["isAdmin"] === 1
+        ){
+            return TRUE;
+        }
+        
+        return FALSE;
     }
 }

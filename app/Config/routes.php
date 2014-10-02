@@ -29,7 +29,20 @@
  * ...and connect the rest of 'Pages' controller's URLs.
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
-        
+        Router::connect('/login',
+            array(
+                'controller'    => 'home',
+                'action'        => 'login',
+                'admin'         => TRUE
+            )
+        );
+        Router::connect('/logout',
+            array(
+                'controller'    => 'home',
+                'action'        => 'logout',
+                'admin'         => TRUE
+            )
+        );
 /**
  * Routes for admin (back-end)
  */

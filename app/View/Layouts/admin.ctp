@@ -41,14 +41,14 @@
                     <li class="user dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown">
                             <img src="http://placehold.it/500" alt="">
-                            <span>[Admin Name]</span>
+                            <span><?php echo $this->Session->read("UserSession.userName"); ?></span>
                             <i class="caret"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                             <li><a href="#"><i class="fa fa-tasks"></i> Tasks</a></li>
                             <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                            <li><a href="#"><i class="fa fa-mail-forward"></i> Logout</a></li>
+                            <li><a href="<?php echo SITE_URL . DS; ?>logout"><i class="fa fa-mail-forward"></i> Logout</a></li>
                         </ul>
                     </li>
                     <li><a class="nav-icon sidebar-toggle"><i class="fa fa-bars"></i></a></li>
