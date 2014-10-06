@@ -111,6 +111,29 @@
 						</ul>
 					</li>
 					<li class="active">
+						<a><i class="fa fa-th-large"></i> <?php echo __('Categories'); ?></a>
+						<ul>
+							<li>
+								<?php
+									echo $this->Html->link(
+										'&raquo; ' . __('Categories Manage'),
+										ADMIN_ALIAS .  '/categories-manage',
+										$linkDefaults
+									);
+								?>
+							</li>
+							<li>
+								<?php
+									echo $this->Html->link(
+										'&raquo; ' . __('Add new category'),
+										ADMIN_ALIAS .  '/add-new-category',
+										$linkDefaults
+									);
+								?>
+							</li>
+						</ul>
+					</li>
+					<li class="active">
 						<a><i class="fa fa-th-large"></i> <?php echo __('Words'); ?></a>
 						<ul>
 							<li>
