@@ -10,9 +10,11 @@ class CustomFormHelper extends AppHelper {
 	 * @param string $class Class of container contain errors
 	 */
 	public static function validationSummary($errors, $class = "") {
-		$html = "<div class=\"$class\">";
+		$html = "";
 
 		if ($errors && !empty($errors)) {
+			$html .= "<div class=\"$class\">";
+			
 			if (is_array($errors)) {
 				$_errors = Set::flatten($errors);
 
@@ -22,9 +24,9 @@ class CustomFormHelper extends AppHelper {
 			} else {
 				$html .= "<p>$errors</p>";
 			}
+			
+			$html .= "</div>";
 		}
-
-		$html .= "</div>";
 
 		return $html;
 	}
