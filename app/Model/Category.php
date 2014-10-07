@@ -16,4 +16,11 @@ class Category extends AppModel {
 			)
 		)
 	);
+	
+	public $hasMany = array(
+		'Word' => array(
+			'foreignKey' => 'category_id',
+			'className' => 'Word'
+		)
+	);
 }
