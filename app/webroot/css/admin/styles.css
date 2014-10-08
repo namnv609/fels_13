@@ -3740,3 +3740,8 @@ li.plupload_droptext {
 
 
 
+/**Custom CSS**/
+.user-profile-img{
+	width: 70px;
+	height: 70px;
+}

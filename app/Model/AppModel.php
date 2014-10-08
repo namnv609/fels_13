@@ -30,4 +30,5 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+	public static $slbStatus = array('1' => 'Activated', '0' => 'Inactivated');
 }

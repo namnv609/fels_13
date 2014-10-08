@@ -2,6 +2,10 @@
 
 class UsersController extends AppController {
 	
+	public $helpers = array('Paginator');
+	public $paginate = array();
+
+
 	public function index() {
 		
 	}
@@ -77,5 +81,99 @@ class UsersController extends AppController {
 
 		$this->redirect(array('controller' => 'users', 'action' => 'login'));
 	}
-
+	
+	public function admin_index() {
+		$this->paginate = array(
+			'limit' => 15,
+			'paramType' => 'querystring',
+			'conditions' => array(
+				'admin' => 0
+			),
+			'order' => array('id' => 'DESC'),
+		);
+		
+		$users = $this->paginate('User');
+		
+		$this->set(
+			array(
+				'title_for_layout',
+				'users'
+			),
+			array(
+				__('Users Manage'),
+				$users
+			)
+		);
+	}
+	
+	public function admin_edit($id = 0) {
+		$user = $this->User->findById($id);
+		
+		if ($id != NULL && $user == NULL) {
+			$this->redirect(array(
+				'controller' => 'users',
+				'action' => 'index',
+				'admin' => TRUE
+			));
+		}
+		
+		if ($id != NULL) {
+			$this->request->data = $user;
+		}
+		
+		$this->set('title_for_layout', __('Edit User'));
+	}
+	
+	public function admin_save() {
+		if ($this->request->is('put') || $this->request->is('post')) {
+			$formData = $this->request->data["User"];
+			$this->User->setValidation('update');
+			$fileName = $this->__uploadAvatar($formData["avatar"], $formData["id"]);
+			
+			if (!empty($formData["password"])) {
+				$fields[] = "password";
+			}
+			if (!empty($formData["avatar"]["name"])
+				&& $fileName != ""
+			) {
+				$formData["avatar"] = $fileName;
+				$fields[] = "avatar";
+			}
+			$this->User->set($formData);
+			
+			if ($this->User->save(NULL, TRUE, $fields)) {
+				$this->Session->setFlash(__('Update user successful'));
+				$this->redirect(ADMIN_ALIAS . '/user-profile-' . $formData["id"]);
+			}
+		} else {
+			$this->redirect(array(
+				'controller' => 'users',
+				'action' => 'index',
+				'admin' => TRUE
+			));
+		}
+		
+		$this->setAction('admin_edit');
+	}
+	
+	/**
+	 * Upload avatar
+	 * 
+	 * @param array $file File info
+	 * @param int $userId User id
+	 * @return string File name in server
+	 */
+	private function __uploadAvatar($file, $userId) {
+		$fileType = pathinfo($file["name"], PATHINFO_EXTENSION);
+		$fileName = md5($userId) . '.' . $fileType;
+		$destination = WWW_ROOT . 'img' . DS . $fileName;
+		
+		if (in_array($fileType, array('png', 'jpg', 'bmp', 'jpeg'))
+			&& move_uploaded_file($file["tmp_name"], $destination)
+		) {
+			return $fileName;
+		}
+		
+		return "";
+	}
 }

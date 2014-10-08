@@ -29,7 +29,7 @@
 					<?php echo $category["Category"]["modified"]; ?>
 				</td>
 				<td>
-					<?php echo Category::$slbStatus[$category["Category"]["status"]]; ?>
+					<?php echo AppModel::$slbStatus[$category["Category"]["status"]]; ?>
 				</td>
 				<td>
 					<?php
