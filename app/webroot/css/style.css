@@ -324,3 +324,9 @@ table tr td
 { background: #FBFBFB;
   color: #111;
   border-top: 1px solid #FFF;}
+
+/**Custom CSS**/
+.user-profile-img{
+	width: 70px;
+	height: 70px;
+}

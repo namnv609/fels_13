@@ -1,7 +1,7 @@
 <?php
 
 class Category extends AppModel {
-	public static $slbStatus = array('1' => 'Activated', '0' => 'Inactivated');
+	
 	public $validate = array(
 		'id' => array(
 			'validID' => array(

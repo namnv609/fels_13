@@ -44,7 +44,8 @@
 									<?php
 										echo $this->Html->link(
 											'<i class="fa fa-user"></i> ' . __('Profile'),
-											'/user-profile',
+											ADMIN_ALIAS . '/user-profile-' . 
+												$this->Session->read("UserSession.userID"),
 											$linkDefaults
 										);
 									?>

@@ -1,7 +1,7 @@
 <?php
 
 class User extends AppModel {
-
+	
 	var $actsAs = array('Multivalidatable');
 	public $validationSets = array(
 		'login' => array(
@@ -44,6 +44,22 @@ class User extends AppModel {
 			'password' => array(
 				'rule' => array('minLength', '8'),
 				'message' => 'Minimum 8 characters long'
+			)
+		),
+		'update' => array(
+			'name' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Name is required'
+			),
+			'avatar' => array(
+				'rule' => array('extension', array('png', 'jpg', 'bmp', 'jpeg')),
+				'message' => 'Please supply a valid image (png, jpg, bmp, jpeg)',
+				'last' => TRUE
+			),
+			'password' => array(
+				'rule' => array('minLength', 1),
+				'message' => 'Minimun 8 characters long',
+				'allowEmpty' => TRUE
 			)
 		)
 	);
