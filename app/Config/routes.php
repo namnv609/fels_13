@@ -115,6 +115,40 @@
 		'action' => 'save',
 		'admin' => TRUE
 	));
+	Router::connect(ADMIN_ALIAS . '/lessons-manage', array(
+		'controller' => 'lessons',
+		'action' => 'index',
+		'admin' => TRUE
+	));
+	Router::connect(ADMIN_ALIAS . '/add-new-lesson:id',
+		array(
+			'controller' => 'lessons',
+			'action' => 'edit',
+			'admin' => TRUE,
+			'id' => 0
+		),
+		array(
+			'pass' => array('id'),
+			'id' => '[0]'
+		)
+	);
+	Router::connect(ADMIN_ALIAS . '/edit-lesson-:id',
+		array(
+			'controller' => 'lessons',
+			'action' => 'edit',
+			'admin' => TRUE,
+			'id' => 0
+		),
+		array(
+			'pass' => array('id'),
+			'id' => '[0-9]+'
+		)
+	);
+	Router::connect(ADMIN_ALIAS . '/save-lesson', array(
+		'controller' => 'lessons',
+		'action' => 'save',
+		'admin' => TRUE
+	));
 	/**
 	 * Load all plugin routes. See the CakePlugin documentation on
 	 * how to customize the loading of plugin routes.
