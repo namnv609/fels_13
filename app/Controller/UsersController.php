@@ -7,7 +7,44 @@ class UsersController extends AppController {
 
 
 	public function index() {
+		$userID = $this->Session->read("UserSession.userID");
+		$this->request->data = $this->User->findById($userID);
 		
+		$this->set('title_for_layout', __('User info'));
+	}
+	
+	public function save(){
+		if ($this->request->is('put') || $this->request->is('post')) {
+			$userID = $this->Session->read("UserSession.userID");
+			$formData = $this->request->data["User"];
+			$this->User->setValidation('update');
+			$fileName = $this->__uploadAvatar($formData["avatar"], $userID);
+			$this->User->id = $userID;
+			$fields = array("name");
+			
+			if (!empty($formData["password"])) {
+				$fields[] = "password";
+			}
+			if (!empty($formData["avatar"]["name"])
+				&& $fileName != ""
+			) {
+				$formData["avatar"] = $fileName;
+				$fields[] = "avatar";
+			}
+			$this->User->set($formData);
+			
+			if ($this->User->save(NULL, TRUE, $fields)) {
+				$this->Session->setFlash(__('Update user successful'));
+				$this->redirect('/profile');
+			}
+		} else {
+			$this->redirect(array(
+				'controller' => 'users',
+				'action' => 'index'
+			));
+		}
+		
+		$this->setAction('index');
 	}
 
 	public function login() {
@@ -129,6 +166,7 @@ class UsersController extends AppController {
 			$formData = $this->request->data["User"];
 			$this->User->setValidation('update');
 			$fileName = $this->__uploadAvatar($formData["avatar"], $formData["id"]);
+			$fields = array("name");
 			
 			if (!empty($formData["password"])) {
 				$fields[] = "password";
