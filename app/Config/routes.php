@@ -16,6 +16,14 @@
 		'controller' => 'users',
 		'action' => 'register'
 	));
+	Router::connect('/profile', array(
+		'controller' => 'users',
+		'action' => 'index'
+	));
+	Router::connect('/profile/update', array(
+		'controller' => 'users',
+		'action' => 'save'
+	));
 	/**
 	 * Routes for admin (back-end)
 	 */

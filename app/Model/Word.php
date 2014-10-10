@@ -28,6 +28,7 @@ class Word extends AppModel {
 	 * @param array $ids List word ids have a question
 	 * @return array List word not yet have a question
 	 */
+
 	public function wordList($ids) {
 		$words = array('' => '---Words---');
 		$words += $this->find('list', array(
