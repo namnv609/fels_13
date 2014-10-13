@@ -6,6 +6,16 @@ class CategoriesController extends AppController {
 	public $paginate = array();
 
 	public function index() {
+		$this->set(
+			array(
+				'title_for_layout',
+				'categories'
+			),
+			array(
+				__('Categories'),
+				$this->Category->getUserCategories($this->Session->read("UserSession.userID"))
+			)
+		);
 	}
 	
 	public function admin_index($page = 1) {

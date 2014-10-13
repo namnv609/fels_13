@@ -25,6 +25,38 @@ class Category extends AppModel {
 	);
 	
 	/**
+	 * Get categories for user
+	 * 
+	 * @param int $userID User ID
+	 * @return array List category and words has learned
+	 */
+	public function getUserCategories($userID) {
+		$this->virtualFields["learned"] = "SELECT count(result.lesson_id) "
+				. "FROM lessons AS lesson "
+				. "INNER JOIN results AS result "
+				. "ON lesson.id = result.lesson_id "
+				. "WHERE lesson.word_id = word.id "
+				. "AND result.user_id = " . $userID;
+		
+		$categories = $this->find("all", array(
+			"joins" => array(
+				array(
+					"table" => "words",
+					"alias" => "word",
+					"type" => "INNER",
+					"conditions" => array(
+						"word.category_id = Category.id"
+					)
+				)
+			),
+			"group" => "word.category_id"
+		));
+		
+		return $categories;
+	}
+
+
+	/**
 	 * Get user actitvities
 	 * 
 	 * @param int $userID User id
