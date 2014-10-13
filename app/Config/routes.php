@@ -28,6 +28,10 @@
 		'controller' => 'words',
 		'action' => 'index'
 	));
+	Router::connect('categories', array(
+		'controller' => 'categories',
+		'action' => 'index'
+	));
 	/**
 	 * Routes for admin (back-end)
 	 */
