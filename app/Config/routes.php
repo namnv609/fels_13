@@ -24,6 +24,10 @@
 		'controller' => 'users',
 		'action' => 'save'
 	));
+	Router::connect('/word-list', array(
+		'controller' => 'words',
+		'action' => 'index'
+	));
 	/**
 	 * Routes for admin (back-end)
 	 */

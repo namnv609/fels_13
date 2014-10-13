@@ -33,9 +33,6 @@
 							<?php echo $this->Html->link(__('Categories'), '/categories'); ?>
 						</li>
 						<li>
-							<?php echo $this->Html->link(__('Lessons'), '/lessons'); ?>
-						</li>
-						<li>
 							<?php echo $this->Html->link(__('Hello, ') . $this->Session->read('UserSession.userName'), '/profile'); ?>
 						</li>
 						<li>

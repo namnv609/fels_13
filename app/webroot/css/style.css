@@ -331,3 +331,11 @@ table tr td
 	width: 70px;
 	height: 70px;
 }
+.pagination{
+	text-align: right;
+}
+.pagination span{
+	padding: 2px 5px;
+	border: 1px solid #CCC;
+	margin: 0 3px;
+}

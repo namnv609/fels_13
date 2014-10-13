@@ -16,6 +16,67 @@ class WordsController extends AppController {
 	}
 
 	public function index() {
+		$queryString = $this->request->query;
+		$conditions = array();
+		$learnCondition = "";
+		
+		if (isset($queryString["category"])
+			&& is_numeric($queryString["category"])
+			&& $queryString["category"] > 0
+		) {
+			$conditions["Word.category_id"] = $queryString["category"];
+		}
+		if (isset($queryString["learn"])
+			&& is_numeric($queryString["learn"])
+			&& $queryString["learn"] > 0
+		) {
+			switch ($queryString["learn"]) {
+				case 1:
+					$learnCondition = "IN";
+					break;
+				case 2:
+					$learnCondition = "NOT IN";
+					break;
+				default :
+					$learnCondition = "";
+			}
+			
+			$conditions[] = "Word.id $learnCondition (SELECT Lesson.word_id FROM lessons AS Lesson "
+						. "INNER JOIN results AS Result "
+						. "ON Lesson.id = Result.lesson_id "
+						. "WHERE Result.user_id = " . $this->Session->read('UserSession.userID') . ")";
+		}
+		
+		if (!isset($queryString["category"])) {
+			$queryString["category"] = "";
+		}
+		if (!isset($queryString["learn"])) {
+			$queryString["learn"] = 0;
+		}
+		
+		$this->paginate = array(
+			'limit' => 15,
+			'paramType' => 'querystring',
+			'order' => array('Word.id' => 'DESC'),
+			'conditions' => $conditions
+		);
+		$words = $this->paginate('Word');
+		
+		
+		$this->set(
+			array(
+				'title_for_layout',
+				'categories',
+				'words',
+				'queryStr'
+			),
+			array(
+				__('Word List'),
+				$this->categories,
+				$words,
+				$queryString
+			)
+		);
 	}
 	
 	public function admin_index() {
