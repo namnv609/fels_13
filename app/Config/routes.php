@@ -32,6 +32,21 @@
 		'controller' => 'categories',
 		'action' => 'index'
 	));
+	Router::connect('/lesson-:id',
+		array(
+			'controller' => 'lessons',
+			'action' => 'index',
+			'id' => 0
+		),
+		array(
+			'pass' => array('id'),
+			'id' => '[0-9]+'
+		)
+	);
+	Router::connect('/lesson/submit', array(
+		'controller' => 'lessons',
+		'action' => 'save'
+	));
 	/**
 	 * Routes for admin (back-end)
 	 */

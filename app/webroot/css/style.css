@@ -339,3 +339,6 @@ table tr td
 	border: 1px solid #CCC;
 	margin: 0 3px;
 }
+#btn-prev, #btn-next{
+	margin: 0 10px 0 0 !important;
+}

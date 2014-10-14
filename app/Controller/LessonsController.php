@@ -4,8 +4,44 @@ class LessonsController extends AppController {
 	
 	public $helpers = array("Paginator");
 	public $paginate = array();
+	public $uses = array("Category", "Result", "Lesson");
 	
-	public function index() {
+	public function index($id = 0) {
+		$title = $this->Category->findById($id);
+		
+		$this->Result->deleteOldResult($id, $this->Session->read("UserSession.userID"));
+		
+		$this->set(
+			array(
+				'title_for_layout',
+				'questions',
+				'categoryID'
+			),
+			array(
+				$title["Category"]["name"],
+				$this->Lesson->getQuestions($id),
+				$id
+			)
+		);
+	}
+	
+	public function save() {
+		$data = array();
+		$answers = $this->request->data["Result"];
+		
+		foreach ($answers as $key => $value) {
+			$data[] = array(
+				"user_id" => $this->Session->read("UserSession.userID"),
+				"lesson_id" => $key,
+				"answer" => $value
+			);
+		}
+		
+		if ($this->Result->saveMany($data)) {
+			$this->redirect("/result/lesson-" . $this->request->data["categoryID"]);
+		} else {
+			throw new Exception(__('Error. Please try again later'));
+		}
 	}
 	
 	public function admin_index() {
