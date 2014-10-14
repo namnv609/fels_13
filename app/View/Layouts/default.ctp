@@ -7,10 +7,12 @@
 		<meta http-equiv="content-type" content="text/html; charset=windows-1252" />
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<?php
 			echo $this->Html->css(array(
 				'style'
 			));
+			echo $this->Html->script('script');
 		?>
 	</head>
 	<body>
