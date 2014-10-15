@@ -38,7 +38,7 @@ class LessonsController extends AppController {
 		}
 		
 		if ($this->Result->saveMany($data)) {
-			$this->redirect("/result/lesson-" . $this->request->data["categoryID"]);
+			$this->redirect("/view-result-" . $this->request->data["categoryID"]);
 		} else {
 			throw new Exception(__('Error. Please try again later'));
 		}

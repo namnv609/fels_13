@@ -47,6 +47,17 @@
 		'controller' => 'lessons',
 		'action' => 'save'
 	));
+	Router::connect('/view-result-:id',
+		array(
+			'controller' => 'results',
+			'action' => 'index',
+			'id' => 0
+		),
+		array(
+			'pass' => array('id'),
+			'id' => '[0-9]+'
+		)
+	);
 	/**
 	 * Routes for admin (back-end)
 	 */
